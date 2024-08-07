@@ -149,7 +149,8 @@ def get_map_notes(map_json, **kwargs):
 
     objs = map_json["obj"];
     obj_times = list(map(lambda obj: obj["time"], objs));
-
+    print("=========")
+    print(objs)
     # 1 for circle, 2 for slider, 3 for spinner
     def get_note_type(obj):
         if not obj:

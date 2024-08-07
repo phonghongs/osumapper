@@ -128,7 +128,6 @@ def get_map_notes_and_patterns(map_json, **kwargs):
 
     objs_all = map_json["obj"];
     key_count = map_json["diff"]["CS"];
-
     objs_each = [[] for i in range(key_count)];
 
     for obj in objs_all:
@@ -157,12 +156,6 @@ def get_map_notes_and_patterns(map_json, **kwargs):
 
     obj_ptr_each = [0] * key_count
     obj_end_ptr_each = [0] * key_count
-
-    po = 0;
-    start_time = obj_times[0] - note_max_wait_time;
-    last_obj_time = start_time;
-
-    holding_each = [0] * key_count
 
     data = [];
     pattern_avail_hold = []
@@ -216,15 +209,15 @@ def get_map_notes_and_patterns(map_json, **kwargs):
             obj_end_times = obj_end_times_each[k]
 
             # locate pointers
-            while obj_times[obj_ptr_each[k]] < tick - 5 and obj_ptr_each[k] < len(obj_times) - 1:
+            while obj_ptr_each[k] < len(obj_times) - 1 and obj_times[obj_ptr_each[k]] < tick - 5:
                 obj_ptr_each[k] += 1;
-            while obj_end_times[obj_end_ptr_each[k]] < tick - 5 and obj_end_ptr_each[k] < len(obj_end_times) - 1:
+            while obj_end_ptr_each[k] < len(obj_end_times) - 1 and obj_end_times[obj_end_ptr_each[k]] < tick - 5:
                 obj_end_ptr_each[k] += 1;
 
             obj_ptr = obj_ptr_each[k]
             obj_end_ptr = obj_end_ptr_each[k]
 
-            if obj_times[obj_ptr] >= tick - 5 and obj_times[obj_ptr] <= tick + 5: # found note on key
+            if obj_ptr_each[k] < len(obj_times) - 1 and obj_times[obj_ptr] >= tick - 5 and obj_times[obj_ptr] <= tick + 5: # found note on key
                 has_note = True
                 note_type = get_note_type_mania(objs[obj_ptr])
                 if note_type == 4:
@@ -233,7 +226,7 @@ def get_map_notes_and_patterns(map_json, **kwargs):
             else:
                 tick_pattern.append(0)
 
-            if obj_end_times[obj_end_ptr] >= tick - 5 and obj_end_times[obj_end_ptr] <= tick + 5: # found note end on key
+            if obj_end_ptr_each[k] < len(obj_end_times) - 1 and obj_end_times[obj_end_ptr] >= tick - 5 and obj_end_times[obj_end_ptr] <= tick + 5: # found note end on key
                 has_note_end = True
                 tick_pattern_end.append(1)
             else:

@@ -80,6 +80,7 @@ def step3_save_hs_dataset(hs_avail_flags, hs):
 
 def read_map_npz_pattern(file_path):
     with np.load(file_path) as data:
+        print(data)
         pattern_data = data["pattern"];
     return pattern_data;
 

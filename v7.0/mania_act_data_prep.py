@@ -37,10 +37,10 @@ def step1_load_maps():
     print("Number of filtered maps: {}".format(len(results)));
 
     for k, mname in enumerate(results):
-        try:
-            start = time.time()
-            read_and_save_osu_file(mname.strip(), filename=os.path.join(mapdata_path, str(k)), divisor=divisor);
-            end = time.time()
-            print("Map data #" + str(k) + " saved! time = " + str(end - start) + " secs");
-        except Exception as e:
-            print("Error on #{}, path = {}, error = {}".format(str(k), mname.strip(), e));
+        # try:
+        start = time.time()
+        read_and_save_osu_file(mname.strip(), filename=os.path.join(mapdata_path, str(k)), divisor=divisor);
+        end = time.time()
+        print("Map data #" + str(k) + " saved! time = " + str(end - start) + " secs");
+        # except Exception as e:
+        #     print("Error on #{}, path = {}, error = {}".format(str(k), mname.strip(), e));
